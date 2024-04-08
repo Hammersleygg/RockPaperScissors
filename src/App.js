@@ -1,5 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +27,31 @@ const styles = StyleSheet.create({
   },
 });
 
+// Create a stack navigator
+const Stack = createStackNavigator();
+
+// Info screen component
+function InfoScreen() {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.buttonText}>Info Screen</Text>
+    </View>
+  );
+}
+
 export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Info" component={InfoScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+// Home screen component
+function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <TouchableOpacity 
@@ -38,7 +65,7 @@ export default function App() {
       <TouchableOpacity 
         style={styles.button}
         onPress={() => {
-          console.log('How to Play button pressed');
+          navigation.navigate('Info') // Navigate to the 'Info' screen
         }}
       >
         <Text style={styles.buttonText}>How to Play</Text>
