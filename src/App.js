@@ -1,82 +1,142 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TouchableOpacity, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Dimensions, ImageBackground } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-const styles = StyleSheet.create({
 
+import backgroundImage from '../assets/fighting.png';
+
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#B7C9E2',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  gameTitle: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    color: 'white',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 10,
+    marginBottom: 250,
+  },
+  buttonContainer: {
+    marginBottom: 36,
+    alignItems: 'center',
+  },
   button: {
-    backgroundColor: '#50C878',
+    backgroundColor: '#007bff',
     width: Dimensions.get('window').width / 1.6,
     height: Dimensions.get('window').height / 15,
     alignItems: 'center',
+    justifyContent: 'center',
     padding: 10,
     borderRadius: 5,
-    marginTop: Dimensions.get('window').height / 15,
+    marginBottom: 10,
   },
   buttonText: {
-    color: '#000000',
-    fontWeight: '400',
-    fontSize: 22,
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 24,
   },
   healthBarContainer: {
-    width: Dimensions.get('window').width * 0.5, 
+    width: Dimensions.get('window').width * 0.5,
     height: 20,
     backgroundColor: 'gray',
     borderRadius: 10,
+    marginBottom: 10,
   },
   healthBar: {
     height: '100%',
     backgroundColor: 'green',
     borderRadius: 10,
   },
+  instructions: {
+    fontSize: 18,
+    marginBottom: 15,
+    color: 'white',
+    textAlign: 'center',
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.75)', 
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 20,
+  },
 });
+
 
 const Stack = createStackNavigator();
 
 function InfoScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.buttonText}>Info Screen</Text>
+      <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+        <View style={styles.overlay}>
+          <Text style={styles.title}>How to Play</Text>
+          <Text style={styles.instructions}>1. Each player selects one of the three options: rock, paper, or scissors.</Text>
+          <Text style={styles.instructions}>2. The winner is determined based on the choices made:</Text>
+          <Text style={styles.instructions}>   - Rock crushes scissors, so rock wins against scissors.</Text>
+          <Text style={styles.instructions}>   - Scissors cut paper, so scissors win against paper.</Text>
+          <Text style={styles.instructions}>   - Paper covers rock, so paper wins against rock.</Text>
+          <Text style={styles.instructions}>3. If both players choose the same option, the game is a tie.</Text>
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => {
+              navigation.goBack();
+            }}
+          >
+            <Text style={styles.buttonText}>Go Back</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
 
 function Player1SelectStance({ route, navigation }) {
   const { player1Health, player2Health } = route.params;
-  
+
   const [player1Stance, setPlayer1Stance] = useState(null);
 
   const selectStance = (stance) => {
     setPlayer1Stance(stance);
-    navigation.navigate('Player2SelectStance', { player1Stance: stance, player1Health, player2Health});
+    navigation.navigate('Player2SelectStance', { player1Stance: stance, player1Health, player2Health });
   };
 
   return (
     <View style={styles.container}>
-        <View style={styles.healthBarContainer}>
-        <View style={{...styles.healthBar, width: `${player1Health}%`}} />
+      <View style={styles.healthBarContainer}>
+        <View style={{ ...styles.healthBar, width: `${player1Health}%` }} />
       </View>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.button}
         onPress={() => selectStance('Rock')}
       >
         <Text style={styles.buttonText}>Rock</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.button}
         onPress={() => selectStance('Paper')}
       >
         <Text style={styles.buttonText}>Paper</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.button}
         onPress={() => selectStance('Scissors')}
       >
@@ -305,29 +365,38 @@ function ResultScreen({ route, navigation }) {
     </View>
   );
 }
-function HomeScreen({ navigation }) {
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
+
+const HomeScreen = ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity 
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate('Player1SelectStance',  { player1Health: 100, player2Health: 100 });
-        }}
-      >
-        <Text style={styles.buttonText}>Start Game</Text>
-      </TouchableOpacity>
-      <TouchableOpacity 
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate('Info');
-        }}
-      >
-        <Text style={styles.buttonText}>How to Play</Text>
-      </TouchableOpacity>
-      <StatusBar style="auto" />
-    </View>
+    <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+      <View style={styles.container}>
+        <Text style={styles.gameTitle}>Rock Paper Scissors</Text>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('Player1SelectStance', { player1Health: 100, player2Health: 100 });
+            }}
+          >
+            <Text style={styles.buttonText}>Start Game</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate('Info');
+            }}
+          >
+            <Text style={styles.buttonText}>How to Play</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </ImageBackground>
   );
-}
+};
+
 
 export default function App() {
   return (
