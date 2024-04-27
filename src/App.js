@@ -79,6 +79,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
   },
+  overlay2: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)', 
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
   title: {
     fontSize: 32,
     fontWeight: 'bold',
@@ -98,34 +105,83 @@ const styles = StyleSheet.create({
   },
 });
 
+const infoScreenStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  backgroundImage: {
+    flex: 1,
+    resizeMode: 'cover',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 20,
+    borderRadius: 10,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  instructions: {
+    fontSize: 16,
+    color: 'white',
+    marginBottom: 8,
+  },
+  button: {
+    backgroundColor: '#007bff',
+    width: 150,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 5,
+    marginTop: 20,
+  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+});
+
+
 
 const Stack = createStackNavigator();
 
 function InfoScreen() {
   return (
-    <View style={styles.container}>
-      <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
-        <View style={styles.overlay}>
-          <Text style={styles.title}>How to Play</Text>
-          <Text style={styles.instructions}>1. Each player selects one of the three options: rock, paper, or scissors.</Text>
-          <Text style={styles.instructions}>2. The winner is determined based on the choices made:</Text>
-          <Text style={styles.instructions}>   - Rock crushes scissors, so rock wins against scissors.</Text>
-          <Text style={styles.instructions}>   - Scissors cut paper, so scissors win against paper.</Text>
-          <Text style={styles.instructions}>   - Paper covers rock, so paper wins against rock.</Text>
-          <Text style={styles.instructions}>3. If both players choose the same option, the game is a tie.</Text>
+    <View style={infoScreenStyles.container}>
+      <ImageBackground source={backgroundImage} style={infoScreenStyles.backgroundImage}>
+        <View style={infoScreenStyles.overlay}>
+          <Text style={infoScreenStyles.title}>How to Play</Text>
+          <Text style={infoScreenStyles.instructions}>1. Each player selects one of the three options: rock, paper, or scissors.</Text>
+          <Text style={infoScreenStyles.instructions}>2. The winner is determined based on the choices made:</Text>
+          <Text style={infoScreenStyles.instructions}>   - Rock crushes scissors, so rock wins against scissors.</Text>
+          <Text style={infoScreenStyles.instructions}>   - Scissors cut paper, so scissors win against paper.</Text>
+          <Text style={infoScreenStyles.instructions}>   - Paper covers rock, so paper wins against rock.</Text>
+          <Text style={infoScreenStyles.instructions}>3. If both players choose the same option, the game is a tie.</Text>
+          <Text style={infoScreenStyles.instructions}>4. Both Players start at 100 HP.</Text>
+          <Text style={infoScreenStyles.instructions}>   - 15 damage is dealt if you change your stance.</Text>
+          <Text style={infoScreenStyles.instructions}>   - 30 damage is dealt if you keep your stance the whole time.</Text>
           <TouchableOpacity 
-            style={styles.button}
+            style={infoScreenStyles.button}
             onPress={() => {
               navigation.goBack();
             }}
           >
-            <Text style={styles.buttonText}>Go Back</Text>
+            <Text style={infoScreenStyles.buttonText}>Go Back</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>
   );
 }
+
+
 
 function Player1SelectStance({ route, navigation }) {
   const { player1Health, player2Health } = route.params;
@@ -139,25 +195,29 @@ function Player1SelectStance({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-       <Text style={styles.turnText}>Player 2</Text>
-      <View style={styles.healthBarContainer}>
-        <View style={{ ...styles.healthBar, width: `${player1Health}%` }} />
-      </View>
-      <TouchableOpacity
-        onPress={() => selectStance('Rock')}
-      >
-        <FontAwesomeIcon icon={faHandFist} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => selectStance('Paper')}
-      >
-        <FontAwesomeIcon icon={faHandPaper} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => selectStance('Scissors')}
-      >
-      <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />
-      </TouchableOpacity>
+      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+        <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
+          <Text style={styles.title}>Player 1</Text>
+          <View style={styles.healthBarContainer}>
+            <View style={{ ...styles.healthBar, width: `${player1Health}%` }} />
+          </View>
+          <TouchableOpacity
+            onPress={() => selectStance('Rock')}
+          >
+            <FontAwesomeIcon icon={faHandFist} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => selectStance('Paper')}
+          >
+            <FontAwesomeIcon icon={faHandPaper} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => selectStance('Scissors')}
+          >
+          <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -173,25 +233,29 @@ function Player2SelectStance({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-        <Text style={styles.turnText}>Player 2</Text>
-      <View style={styles.healthBarContainer}>
-        <View style={{ ...styles.healthBar, width: `${player2Health}%` }} />
-      </View>
+      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+      <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
+          <Text style={styles.title}>Player 2</Text>
+          <View style={styles.healthBarContainer}>
+            <View style={{ ...styles.healthBar, width: `${player2Health}%` }} />
+          </View>
 
-      <TouchableOpacity onPress={() => selectStance('Rock')} >
-      <FontAwesomeIcon icon={faHandFist} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
-      </TouchableOpacity>
+          <TouchableOpacity onPress={() => selectStance('Rock')} >
+          <FontAwesomeIcon icon={faHandFist} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
+          </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => selectStance('Paper')}
-      >
-        <FontAwesomeIcon icon={faHandPaper} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => selectStance('Scissors')}
-      >
-      <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />
-      </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => selectStance('Paper')}
+          >
+            <FontAwesomeIcon icon={faHandPaper} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => selectStance('Scissors')}
+          >
+          <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -207,28 +271,32 @@ function Player1ChangeStance({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-        <Text style={styles.turnText}>Player 1</Text>
-        <View style={styles.healthBarContainer}>
-        <View style={{...styles.healthBar, width: `${player1Health}%`}} />
-      </View>
-      <Text style={styles.text}>Player 1's Current Stance: {player1Stance}</Text>
-      <Text style={styles.text}>Player 2's Current Stance: {player2Stance}</Text>
+      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+        <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
+            <Text style={styles.title}>Player 1</Text>
+            <View style={styles.healthBarContainer}>
+            <View style={{...styles.healthBar, width: `${player1Health}%`}} />
+          </View>
+          <Text style={styles.instructions}>Player 1's Current Stance: {player1Stance}</Text>
+          <Text style={styles.instructions}>Player 2's Current Stance: {player2Stance}</Text>
 
-      <TouchableOpacity 
-        onPress={() => changeStance('Rock')}
-      >
-        <FontAwesomeIcon icon={faHandFist} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
-      </TouchableOpacity>
-      <TouchableOpacity 
-        onPress={() => changeStance('Paper')}
-      >
-        <FontAwesomeIcon icon={faHandPaper} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
-      </TouchableOpacity>
-      <TouchableOpacity 
-        onPress={() => changeStance('Scissors')}
-      >
-      <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />      
-      </TouchableOpacity>
+          <TouchableOpacity 
+            onPress={() => changeStance('Rock')}
+          >
+            <FontAwesomeIcon icon={faHandFist} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
+          </TouchableOpacity>
+          <TouchableOpacity 
+            onPress={() => changeStance('Paper')}
+          >
+            <FontAwesomeIcon icon={faHandPaper} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
+          </TouchableOpacity>
+          <TouchableOpacity 
+            onPress={() => changeStance('Scissors')}
+          >
+          <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />      
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -244,27 +312,31 @@ function Player2ChangeStance({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-        <Text style={styles.turnText}>Player 2</Text>
-        <View style={styles.healthBarContainer}>
-        <View style={{...styles.healthBar, width: `${player2Health}%`}} />
-      </View>
-      <Text style={styles.text}>Player 1's Stance: {player1Stance}</Text>
-      <Text style={styles.text}>Player 2's Current Stance: {player2Stance}</Text>
-      <TouchableOpacity 
-        onPress={() => changeStance('Rock')}
-      >
-        <FontAwesomeIcon icon={faHandFist} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
-      </TouchableOpacity>
-      <TouchableOpacity 
-        onPress={() => changeStance('Paper')}
-      >
-        <FontAwesomeIcon icon={faHandPaper} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
-      </TouchableOpacity>
-      <TouchableOpacity 
-        onPress={() => changeStance('Scissors')}
-      >
-      <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />      
-      </TouchableOpacity>
+      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+        <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
+            <Text style={styles.title}>Player 2</Text>
+            <View style={styles.healthBarContainer}>
+            <View style={{...styles.healthBar, width: `${player2Health}%`}} />
+          </View>
+          <Text style={styles.instructions}>Player 1's Stance: {player1Stance}</Text>
+          <Text style={styles.instructions}>Player 2's Current Stance: {player2Stance}</Text>
+          <TouchableOpacity 
+            onPress={() => changeStance('Rock')}
+          >
+            <FontAwesomeIcon icon={faHandFist} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
+          </TouchableOpacity>
+          <TouchableOpacity 
+            onPress={() => changeStance('Paper')}
+          >
+            <FontAwesomeIcon icon={faHandPaper} style={{ ...styles.iconbutton, transform: [{ rotate: '90deg' }] }} size={100} />
+          </TouchableOpacity>
+          <TouchableOpacity 
+            onPress={() => changeStance('Scissors')}
+          >
+          <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />      
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -275,14 +347,16 @@ function BattleScreen({ route, navigation }) {
   if (player1Move === player2Move) {
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Its a Tie</Text>
-        <TouchableOpacity 
-      style={styles.button}
-      onPress={() => {navigation.navigate('Player1SelectStance', { player1Health, player2Health});
-      }}
-    >
-      <Text style={styles.buttonText}>Continue</Text>
-    </TouchableOpacity>
+        <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+          <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
+          <Text style={styles.title}>Its a Tie</Text>
+            <TouchableOpacity 
+                style={styles.button}
+                onPress={() => {navigation.navigate('Player1SelectStance', { player1Health, player2Health});}}>
+              <Text style={styles.buttonText}>Continue</Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -299,20 +373,22 @@ function BattleScreen({ route, navigation }) {
     }
     return (
       <View style={styles.container}>
-        <Text style={styles.text}>Player One Wins!</Text>
-        <Text style={styles.text}>{message}</Text>
-        <TouchableOpacity 
-      style={styles.button}
-      onPress={() => {
-        if (player1Health <= 0 || newPlayer2Health <= 0) {
-          navigation.navigate('ResultScreen', { player1Health, player2Health: newPlayer2Health });
-        } else {
-          navigation.navigate('Player1SelectStance', { player1Health, player2Health: newPlayer2Health });
-        }
-      }}
-    >
-      <Text style={styles.buttonText}>Continue</Text>
-    </TouchableOpacity>
+        <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+          <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
+            <Text style={styles.title}>Player One Wins!</Text>
+            <Text style={styles.text}>{message}</Text>
+            <TouchableOpacity 
+              style={styles.button}
+              onPress={() => {
+                if (player1Health <= 0 || newPlayer2Health <= 0) {
+                  navigation.navigate('ResultScreen', { player1Health, player2Health: newPlayer2Health });
+                } else {
+                  navigation.navigate('Player1SelectStance', { player1Health, player2Health: newPlayer2Health });
+                }}}>
+            <Text style={styles.buttonText}>Continue</Text>
+            </TouchableOpacity>
+          </View>
+        </ImageBackground>
       </View>
     );
   }
@@ -329,29 +405,33 @@ function BattleScreen({ route, navigation }) {
       }
       return (
         <View style={styles.container}>
-          <Text style={styles.text}>Player Two Wins!</Text>
-          <Text style={styles.text}>{message}</Text>
-          <TouchableOpacity 
-      style={styles.button}
-      onPress={() => {
-        if (newPlayer1Health <= 0 || player2Health <= 0) {
-          navigation.navigate('ResultScreen', { player1Health: newPlayer1Health, player2Health});
-        } else {
-          navigation.navigate('Player1SelectStance', { player1Health: newPlayer1Health, player2Health});
-        }
-      }}
-    >
-      <Text style={styles.buttonText}>Continue</Text>
-    </TouchableOpacity>
+          <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+            <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
+              <Text style={styles.title}>Player Two Wins!</Text>
+              <Text style={styles.text}>{message}</Text>
+              <TouchableOpacity 
+                style={styles.button}
+                onPress={() => {
+                  if (newPlayer1Health <= 0 || player2Health <= 0) {
+                    navigation.navigate('ResultScreen', { player1Health: newPlayer1Health, player2Health});
+                  } else {
+                    navigation.navigate('Player1SelectStance', { player1Health: newPlayer1Health, player2Health});
+                  }}}>
+              <Text style={styles.buttonText}>Continue</Text>
+              </TouchableOpacity>
+            </View>
+          </ImageBackground>
         </View>
       );
   }
   return (
     <View style={styles.container}>
-      <Text style={styles.buttonText}>Player 1's Original Stance: {player1Stance}</Text>
-      <Text style={styles.buttonText}>Player 2's Original Stance: {player2Stance}</Text>
-      <Text style={styles.buttonText}>Player 1's Move: {player1Move}</Text>
-      <Text style={styles.buttonText}>Player 2's Move: {player2Move}</Text>
+      <ImageBackground source={backgroundImage} style={styles.backgroundImage}>
+        <Text style={styles.buttonText}>Player 1's Original Stance: {player1Stance}</Text>
+        <Text style={styles.buttonText}>Player 2's Original Stance: {player2Stance}</Text>
+        <Text style={styles.buttonText}>Player 1's Move: {player1Move}</Text>
+        <Text style={styles.buttonText}>Player 2's Move: {player2Move}</Text>
+      </ImageBackground>
     </View>
   );
 }
@@ -366,19 +446,23 @@ function ResultScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.healthBarContainer}>
-        <View style={{...styles.healthBar, width: `${displayPlayer1Health}%`}} />
-      </View>
-      <View style={styles.healthBarContainer}>
-        <View style={{...styles.healthBar, width: `${displayPlayer2Health}%`}} />
-      </View>
-      <Text style={styles.text}>{winner} is victorious!</Text>
-      <TouchableOpacity 
-        style={styles.button}
-        onPress={() => navigation.navigate('Home')}
-      >
-        <Text style={styles.buttonText}>Go to Home Page</Text>
-      </TouchableOpacity>
+      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+        <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
+          <View style={styles.healthBarContainer}>
+            <View style={{...styles.healthBar, width: `${displayPlayer1Health}%`}} />
+          </View>
+          <View style={styles.healthBarContainer}>
+            <View style={{...styles.healthBar, width: `${displayPlayer2Health}%`}} />
+          </View>
+          <Text style={styles.title}>{winner} is victorious!</Text>
+          <TouchableOpacity 
+            style={styles.button}
+            onPress={() => navigation.navigate('Home')}
+          >
+            <Text style={styles.buttonText}>Go to Home Page</Text>
+          </TouchableOpacity>
+        </View>
+      </ImageBackground>
     </View>
   );
 }
