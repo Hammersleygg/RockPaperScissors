@@ -91,18 +91,15 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: 'white',
     marginBottom: 20,
+    position: 'absolute',
+    top: 70,
+    alignSelf: 'center',
   },
   iconbutton: {    
     marginTop: 15,
     marginBottom: 15,
-  },
-  turnText: {
-    position: 'absolute',
-    top: 70,
-    fontSize: 24,
-    color: 'black',
-    alignSelf: 'center',
-  },
+    color: 'white',
+  }
 });
 
 const infoScreenStyles = StyleSheet.create({
@@ -214,7 +211,7 @@ function Player1SelectStance({ route, navigation }) {
           <TouchableOpacity
             onPress={() => selectStance('Scissors')}
           >
-          <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />
+          <FontAwesomeIcon icon={faHandScissors} style={{ ...styles.iconbutton, transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -252,7 +249,7 @@ function Player2SelectStance({ route, navigation }) {
           <TouchableOpacity
             onPress={() => selectStance('Scissors')}
           >
-          <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />
+          <FontAwesomeIcon icon={faHandScissors} style={{ ...styles.iconbutton, transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -293,7 +290,7 @@ function Player1ChangeStance({ route, navigation }) {
           <TouchableOpacity 
             onPress={() => changeStance('Scissors')}
           >
-          <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />      
+          <FontAwesomeIcon icon={faHandScissors} style={{ ...styles.iconbutton, transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />      
           </TouchableOpacity>
         </View>
       </ImageBackground>
@@ -333,7 +330,7 @@ function Player2ChangeStance({ route, navigation }) {
           <TouchableOpacity 
             onPress={() => changeStance('Scissors')}
           >
-          <FontAwesomeIcon icon={faHandScissors} style={{ transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />      
+          <FontAwesomeIcon icon={faHandScissors} style={{ ...styles.iconbutton, transform: [{ rotate: '180deg' },{ scaleY: -1 } ] }} size={100} />      
           </TouchableOpacity>
         </View>
       </ImageBackground>
