@@ -7,18 +7,19 @@ import { faHandFist, faHandPaper, faHandRock, faHandScissors } from '@fortawesom
 import { createStackNavigator } from '@react-navigation/stack';
 
 
-import backgroundImage from '../assets/fighting.png';
+import backgroundImages from '../assets/fighting.png';
+import backgroundImage from '../assets/Background.jpg';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 1.5,
     alignItems: 'center',
     justifyContent: 'center',
   },
   backgroundImage: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'center',
+    flex: 1.5,
+    resizeMode: 'stretch',
+    justifyContent: 'bottom',
     alignItems: 'center',
   },
   gameTitle: {
@@ -50,8 +51,8 @@ const styles = StyleSheet.create({
     fontSize: 24,
   },
   text: {
-    color: 'black',
-    fontSize: 24,
+    color: 'white',
+    fontSize: 20,
     marginBottom: 10,
   },
   healthBarContainer: {
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   overlay: {
-    flex: 1,
+    flex: 1.5,
     backgroundColor: 'rgba(0, 0, 0, 0.75)', 
     justifyContent: 'center',
     alignItems: 'center',
@@ -152,7 +153,7 @@ const Stack = createStackNavigator();
 function InfoScreen() {
   return (
     <View style={infoScreenStyles.container}>
-      <ImageBackground source={backgroundImage} style={infoScreenStyles.backgroundImage}>
+      <ImageBackground source={backgroundImages} style={infoScreenStyles.backgroundImage}>
         <View style={infoScreenStyles.overlay}>
           <Text style={infoScreenStyles.title}>How to Play</Text>
           <Text style={infoScreenStyles.instructions}>1. Each player selects one of the three options: rock, paper, or scissors.</Text>
@@ -192,7 +193,7 @@ function Player1SelectStance({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight * 1.5 }]}>
         <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
           <Text style={styles.title}>Player 1</Text>
           <View style={styles.healthBarContainer}>
@@ -230,7 +231,7 @@ function Player2SelectStance({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight * 1.5  }]}>
       <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
           <Text style={styles.title}>Player 2</Text>
           <View style={styles.healthBarContainer}>
@@ -268,7 +269,7 @@ function Player1ChangeStance({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight * 1.5 }]}>
         <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
             <Text style={styles.title}>Player 1</Text>
             <View style={styles.healthBarContainer}>
@@ -309,7 +310,7 @@ function Player2ChangeStance({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight * 1.5 }]}>
         <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
             <Text style={styles.title}>Player 2</Text>
             <View style={styles.healthBarContainer}>
@@ -344,7 +345,7 @@ function BattleScreen({ route, navigation }) {
   if (player1Move === player2Move) {
     return (
       <View style={styles.container}>
-        <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+        <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight * 1.5 }]}>
           <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
           <Text style={styles.title}>Its a Tie</Text>
             <TouchableOpacity 
@@ -370,7 +371,7 @@ function BattleScreen({ route, navigation }) {
     }
     return (
       <View style={styles.container}>
-        <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+        <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight * 1.5 }]}>
           <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
             <Text style={styles.title}>Player One Wins!</Text>
             <Text style={styles.text}>{message}</Text>
@@ -402,7 +403,7 @@ function BattleScreen({ route, navigation }) {
       }
       return (
         <View style={styles.container}>
-          <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+          <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight * 1.5 }]}>
             <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
               <Text style={styles.title}>Player Two Wins!</Text>
               <Text style={styles.text}>{message}</Text>
@@ -443,7 +444,7 @@ function ResultScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+      <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight * 1.5 }]}>
         <View style={[styles.overlay2, { width: windowWidth, height: windowHeight }]}>
           <View style={styles.healthBarContainer}>
             <View style={{...styles.healthBar, width: `${displayPlayer1Health}%`}} />
@@ -469,7 +470,7 @@ const windowHeight = Dimensions.get('window').height;
 
 const HomeScreen = ({ navigation }) => {
   return (
-    <ImageBackground source={backgroundImage} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
+    <ImageBackground source={backgroundImages} style={[styles.backgroundImage, { width: windowWidth, height: windowHeight }]}>
       <View style={styles.container}>
         <Text style={styles.gameTitle}>Rock Paper Scissors</Text>
         <View style={styles.buttonContainer}>
