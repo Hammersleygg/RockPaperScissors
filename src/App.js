@@ -168,7 +168,7 @@ function InfoScreen() {
           <TouchableOpacity 
             style={infoScreenStyles.button}
             onPress={() => {
-              navigation.goBack();
+              navigation.navigate('HomeScreen');
             }}
           >
             <Text style={infoScreenStyles.buttonText}>Go Back</Text>
