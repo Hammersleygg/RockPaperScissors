@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import backgroundImages from '../assets/fighting.png';
 import backgroundImage from '../assets/Background.jpg';
+import rules from '../assets/Rulesbackground.jpg';
 
 const styles = StyleSheet.create({
   container: {
@@ -153,7 +154,7 @@ const Stack = createStackNavigator();
 function InfoScreen({ route, navigation }) { // Destructure props
   return (
     <View style={infoScreenStyles.container}>
-      <ImageBackground source={backgroundImages} style={infoScreenStyles.backgroundImage}>
+      <ImageBackground source={rules} style={infoScreenStyles.backgroundImage}>
         <View style={infoScreenStyles.overlay}>
           <Text style={infoScreenStyles.title}>How to Play</Text>
           <Text style={infoScreenStyles.instructions}>1. Each player selects one of the three options: rock, paper, or scissors.</Text>
