@@ -277,8 +277,8 @@ function Player1ChangeStance({ route, navigation }) {
             <View style={styles.healthBarContainer}>
             <View style={{...styles.healthBar, width: `${player1Health}%`}} />
           </View>
-          <Text style={styles.instructions}>Player 1's Current Stance: {player1Stance}</Text>
-          <Text style={styles.instructions}>Player 2's Current Stance: {player2Stance}</Text>
+          <Text style={styles.instructions}>Your Current Stance: {player1Stance}</Text>
+          <Text style={styles.instructions}>Opponents Current Stance: {player2Stance}</Text>
 
           <TouchableOpacity 
             onPress={() => changeStance('Rock')}
@@ -318,8 +318,8 @@ function Player2ChangeStance({ route, navigation }) {
             <View style={styles.healthBarContainer}>
             <View style={{...styles.healthBar, width: `${player2Health}%`}} />
           </View>
-          <Text style={styles.instructions}>Player 1's Stance: {player1Stance}</Text>
-          <Text style={styles.instructions}>Player 2's Current Stance: {player2Stance}</Text>
+          <Text style={styles.instructions}>Your Current Stance: {player2Stance}</Text>
+          <Text style={styles.instructions}>Opponents Current Stance: {player1Stance}</Text>
           <TouchableOpacity 
             onPress={() => changeStance('Rock')}
           >
