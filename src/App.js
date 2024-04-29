@@ -150,7 +150,7 @@ const infoScreenStyles = StyleSheet.create({
 
 const Stack = createStackNavigator();
 
-function InfoScreen() {
+function InfoScreen({ route, navigation }) { // Destructure props
   return (
     <View style={infoScreenStyles.container}>
       <ImageBackground source={backgroundImages} style={infoScreenStyles.backgroundImage}>
@@ -168,7 +168,7 @@ function InfoScreen() {
           <TouchableOpacity 
             style={infoScreenStyles.button}
             onPress={() => {
-              navigation.navigate('HomeScreen');
+              navigation.navigate('Home');
             }}
           >
             <Text style={infoScreenStyles.buttonText}>Go Back</Text>
